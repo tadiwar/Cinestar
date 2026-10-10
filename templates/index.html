@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CineStar - Movie Watchlist</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo" id="home-link">
+                    <i class="fas fa-film"></i>
+                    <span>CineStar</span>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#" class="nav-link active" data-page="home">Home</a></li>
+                        <li><a href="#" class="nav-link" data-page="watchlist">My Watchlist</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <span class="user-greeting"><i class="fas fa-user-circle"></i> {{ user['name'] }}</span>
+                    <form method="post" action="{{ url_for('logout') }}" class="logout-form">
+                        <button type="submit" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Home Page -->
+    <section id="home-page" class="page active">
+        <!-- Search Section -->
+         
+<!-- Search Section -->
+<section class="search-section">
+    <div class="container">
+
+        <div class="welcome-message">
+            <h2>
+    <span id="greetingText">Welcome</span>,
+    {{ user['name'] }}!
+</h2>
+            <p>Find your next favourite movie.</p>
+        </div>
+
+        <div class="search-container">
+            <input type="text" class="search-input" placeholder="Search for movies...">
+            <button class="search-btn">Search</button>
+        </div>
+
+    </div>
+</section>
+        
+
+        <div class="container">
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-movies">0</div>
+                    <div class="stat-label">Movies Found</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="watchlist-count">0</div>
+                    <div class="stat-label">In Watchlist</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="watched-count">0</div>
+                    <div class="stat-label">Watched</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="avg-rating">0.0</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <button class="filter-btn active" data-filter="all">All Movies</button>
+                <button class="filter-btn" data-filter="movie">Movies</button>
+                <button class="filter-btn" data-filter="series">TV Series</button>
+                <button class="filter-btn" data-filter="game">Games</button>
+            </section>
+
+            <!-- Movies Section -->
+            <section class="movies-section">
+                <h2 class="section-title">
+                    <i class="fas fa-fire"></i>
+                    Search Results
+                </h2>
+                <div class="loading" id="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Searching for movies...</p>
+                </div>
+                <div class="movies-grid" id="movies-grid">
+                    <!-- Movie cards will be dynamically inserted here -->
+                </div>
+                <div class="load-more-container" id="load-more-container" style="display: none;">
+                    <button class="btn btn-primary" id="load-more-btn">Load More Movies</button>
+                </div>
+                <div class="empty-watchlist" id="no-results" style="display: none;">
+                    <i class="fas fa-search"></i>
+                    <h3>No movies found</h3>
+                    <p>Try searching for a different movie title</p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Watchlist Page -->
+    <section id="watchlist-page" class="page">
+        <div class="container">
+            <h2 class="section-title">
+                <i class="fas fa-bookmark"></i>
+                My Watchlist
+            </h2>
+            
+            <!-- Stats Section -->
+            <section class="stats-section">
+                <div class="stat-card">
+                    <div class="stat-value" id="wl-total">0</div>
+                    <div class="stat-label">Total Movies</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="wl-watched">0</div>
+                    <div class="stat-label">Watched</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="wl-unwatched">0</div>
+                    <div class="stat-label">To Watch</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="wl-avg-rating">0.0</div>
+                    <div class="stat-label">Avg Rating</div>
+                </div>
+            </section>
+
+            <!-- Filter Section -->
+            <section class="filter-section">
+                <button class="filter-btn active" data-wl-filter="all">All</button>
+                <button class="filter-btn" data-wl-filter="watched">Watched</button>
+                <button class="filter-btn" data-wl-filter="unwatched">To Watch</button>
+            </section>
+
+            <!-- Watchlist Section -->
+            <section class="watchlist-section">
+                <div class="watchlist-grid" id="watchlist-grid">
+                    <!-- Watchlist items will be dynamically inserted here -->
+                </div>
+                <div class="empty-watchlist" id="empty-watchlist">
+                    <i class="fas fa-film"></i>
+                    <h3>Your watchlist is empty</h3>
+                    <p>Start adding movies to keep track of what you want to watch!</p>
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo">
+                    <i class="fas fa-film"></i>
+                    <span>CineStar</span>
+                </div>
+                <p>Track your movies and never forget what to watch next</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-github"></i></a>
+                </div>
+                <p>&copy; 2026 CineStar. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        Movie added to watchlist!
+    </div>
+
+    <!-- Movie Details Modal -->
+    <div class="modal" id="movie-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Movie Title</h2>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be dynamically inserted here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

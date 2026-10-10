@@ -1,0 +1,111 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Arial, sans-serif; background: #0f1115; color: #f5f5f5; }
+.container { width: min(1200px, 92%); margin: auto; }
+header { background: #171a21; border-bottom: 1px solid #2a2e38; position: sticky; top: 0; z-index: 10; }
+.header-content { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.logo { display: flex; align-items: center; gap: 10px; font-size: 1.25rem; font-weight: 700; cursor: pointer; }
+.logo i { color: #f5c518; }
+nav ul { display: flex; list-style: none; margin: 0; padding: 0; gap: 8px; }
+.nav-link { color: #b9bfca; text-decoration: none; padding: 10px 14px; border-radius: 8px; }
+.nav-link.active, .nav-link:hover { background: #252a34; color: #fff; }
+.search-section { padding: 35px 0 20px; background: linear-gradient(180deg, #191d26, #0f1115); }
+.search-container { display: flex; gap: 10px; max-width: 760px; margin: auto; }
+.search-input { flex: 1; padding: 15px 17px; border: 1px solid #363c49; border-radius: 10px; background: #1b1f28; color: #fff; font-size: 1rem; outline: none; }
+.search-input:focus { border-color: #f5c518; }
+.btn { border: 0; border-radius: 8px; padding: 10px 14px; cursor: pointer; font-weight: 600; }
+.btn-primary { background: #f5c518; color: #111; }
+.btn-success { background: #2e9d63; color: white; }
+.btn-outline { background: transparent; border: 1px solid #4b5260; color: #fff; }
+.btn-danger { background: #b83a3a; color: #fff; }
+.btn:disabled { opacity: .6; cursor: not-allowed; }
+.stats-section { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin: 25px 0; }
+.stat-card { background: #181c24; border: 1px solid #292e38; border-radius: 12px; padding: 18px; text-align: center; }
+.stat-value { font-size: 1.6rem; font-weight: 700; }
+.stat-label { color: #aab0bb; margin-top: 5px; font-size: .9rem; }
+.filter-section { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.filter-btn { background: #1c2029; border: 1px solid #333946; color: #c9ced7; padding: 9px 13px; border-radius: 8px; cursor: pointer; }
+.filter-btn.active { background: #f5c518; color: #111; border-color: #f5c518; }
+.section-title { margin: 20px 0; }
+.section-title i { color: #f5c518; }
+.movies-grid, .watchlist-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 18px; }
+.movie-card { background: #181c24; border: 1px solid #292e38; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.movie-poster { width: 100%; aspect-ratio: 2/3; object-fit: cover; background: #242832; }
+.movie-info { padding: 13px; display: flex; flex-direction: column; gap: 7px; flex: 1; }
+.movie-title { margin: 0; font-size: 1rem; line-height: 1.3; }
+.movie-year { color: #aeb4bf; font-size: .88rem; }
+.movie-rating { color: #f5c518; display: flex; gap: 6px; align-items: center; }
+.movie-actions { display: flex; flex-direction: column; gap: 7px; margin-top: auto; padding-top: 8px; }
+.loading { text-align: center; padding: 35px; color: #b8bec9; }
+.loading-spinner { width: 30px; height: 30px; border: 3px solid #333946; border-top-color: #f5c518; border-radius: 50%; margin: 0 auto 10px; animation: spin .8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.empty-watchlist { text-align: center; padding: 45px 10px; color: #9ea5b1; }
+.load-more-container { justify-content: center; padding: 30px 0 50px; }
+footer { margin-top: 60px; background: #171a21; border-top: 1px solid #2a2e38; padding: 30px 0; color: #aab0bb; }
+.footer-content { text-align: center; }
+.social-links { display: flex; justify-content: center; gap: 15px; margin: 15px 0; }
+.social-links a { color: #aab0bb; }
+.notification { position: fixed; right: 20px; bottom: 20px; background: #252a34; border: 1px solid #3a414e; padding: 14px 18px; border-radius: 9px; transform: translateY(120px); opacity: 0; transition: .25s; z-index: 50; }
+.notification.show { transform: translateY(0); opacity: 1; }
+.modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.78); z-index: 30; overflow: auto; padding: 40px 15px; }
+.modal-content { max-width: 900px; margin: auto; background: #181c24; border: 1px solid #343a47; border-radius: 14px; overflow: hidden; }
+.modal-header { padding: 18px 20px; border-bottom: 1px solid #2a2e38; display: flex; justify-content: space-between; align-items: center; }
+.modal-header h2 { margin: 0; }
+.modal-close { background: transparent; color: #fff; border: 0; font-size: 2rem; cursor: pointer; }
+.modal-body { display: grid; grid-template-columns: 260px 1fr; gap: 25px; padding: 25px; }
+.modal-poster { width: 100%; border-radius: 10px; }
+.modal-title { margin-top: 0; }
+.modal-meta { display: flex; flex-wrap: wrap; gap: 15px; color: #f5c518; }
+.modal-plot { color: #c4cad4; line-height: 1.6; }
+.modal-info { display: grid; gap: 10px; }
+.info-item { display: grid; grid-template-columns: 100px 1fr; gap: 10px; }
+.info-label { color: #8f97a5; }
+.info-value { color: #fff; }
+.page { display: none; }
+.page.active { display: block; }
+@media (max-width: 700px) { .stats-section { grid-template-columns: repeat(2, 1fr); } .header-content { flex-direction: column; padding: 15px 0; } .search-container { flex-direction: column; } .modal-body { grid-template-columns: 1fr; } .modal-poster { max-width: 260px; margin: auto; } }
+.user-menu { display: flex; align-items: center; gap: 12px; }
+.user-greeting { color: #c9ced7; font-size: .9rem; white-space: nowrap; }
+.logout-form { margin: 0; }
+.logout-btn { border: 1px solid #3a414e; background: transparent; color: #fff; border-radius: 8px; padding: 9px 12px; cursor: pointer; }
+.logout-btn:hover { border-color: #f5c518; color: #f5c518; }
+.load-more-container { display: flex; justify-content: center; padding: 30px 0 50px; }
+@media (max-width: 800px) { .user-menu { width: 100%; justify-content: center; } }
+
+/* CineStar yellow search button */
+#searchButton,
+.search-button {
+    background-color: #ffcc00;
+    color: #111318;
+    border: 1px solid #ffcc00;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+#searchButton:hover,
+.search-button:hover {
+    background-color: #e6b800;
+    border-color: #e6b800;
+    transform: translateY(-1px);
+}
+
+/* Force CineStar search button to yellow */
+.search-container .search-btn {
+    background: #ffcc00 !important;
+    background-color: #ffcc00 !important;
+    color: #111318 !important;
+    border: 1px solid #ffcc00 !important;
+    border-radius: 8px;
+    padding: 14px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.search-container .search-btn:hover {
+    background: #e6b800 !important;
+    background-color: #e6b800 !important;
+    border-color: #e6b800 !important;
+}

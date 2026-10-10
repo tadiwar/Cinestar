@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - CineStar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='auth.css') }}">
+</head>
+<body class="auth-page">
+    <main class="auth-shell">
+        <div class="auth-brand"><i class="fas fa-film"></i> CineStar</div>
+        <section class="auth-card">
+            <div class="auth-icon"><i class="fas fa-user-plus"></i></div>
+            <h1>Create your account</h1>
+            <p class="auth-subtitle">Save movies to your own personal watchlist.</p>
+            {% if error %}<div class="auth-error">{{ error }}</div>{% endif %}
+            <form method="post" class="auth-form">
+                <label for="name">Name</label>
+                <input id="name" name="name" type="text" autocomplete="name" required>
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" autocomplete="email" required>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" minlength="8" autocomplete="new-password" required>
+                <label for="confirm_password">Confirm password</label>
+                <input id="confirm_password" name="confirm_password" type="password" minlength="8" autocomplete="new-password" required>
+                <button type="submit" class="auth-button">Create Account</button>
+            </form>
+            <p class="auth-switch">Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+        </section>
+    </main>
+</body>
+</html>
